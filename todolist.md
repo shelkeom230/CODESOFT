@@ -26,8 +26,8 @@ Instructions for setup:
 
 Run the `todo_list_app.py` file to launch the application. You can add tasks using the "Add Task" button, delete tasks using the "Delete Task" button, and edit tasks using the "Edit Task" button.
 
-Screenshots: 
 ![image](https://github.com/shelkeom230/CODESOFT/assets/104075298/55ec6143-31db-42e0-9fad-1156e9716587)
+
 ![image](https://github.com/shelkeom230/CODESOFT/assets/104075298/ef29c960-4337-4dce-83fa-c530e3317a64)
 
 
