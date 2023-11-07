@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1F2937;
+            color: #F3F4F6;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-700 text-white">
+    <div class="flex flex-col justify-center items-center h-screen">
+        <h1 class="text-3xl mb-8">Password Generator</h1>
+        <form action="/generate_password" method="post">
+            <label for="length">Desired Password Length:</label>
+            <input type="number" name="length" id="length" class="rounded-lg p-4 m-4 text-black" min="1">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-4 m-4 rounded-full">Generate
+                Password</button>
+        </form>
+        {% if password %}
+        <h2 class="text-2xl mt-8">Generated Password:</h2>
+        <p id="textToCopy" class="text-xl">{{ password }}</p>
+        {% endif %}
+        <br>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onclick="copyText()">Copy
+            password</button>
+    </div>
+
+    <script>
+        function copyText() {
+            var text = document.getElementById("textToCopy").innerText;
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    const alertBox = document.createElement("div");
+                    alertBox.innerText = "Password copied to clipboard";
+                    alertBox.classList.add("absolute", "top-0", "right-0", "bg-green-500", "text-white", "p-2", "m-4",
+                        "rounded");
+                    document.body.appendChild(alertBox);
+                    setTimeout(() => {
+                        alertBox.remove();
+                    }, 3000);
+                })
+                .catch(err => {
+                    console.error('Error in copying text: ', err);
+                });
+        }
+    </script>
+</body>
+
+</html>

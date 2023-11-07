@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rock Paper Scissors</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-black text-white text-center py-10">
+    <h1 class="text-3xl mb-4">Rock Paper Scissors game by Omkar Shelke</h1><br>
+    <form action="/play" method="post">
+        <label for="choice">Choose rock, paper, or scissors:</label>
+        <select name="choice" class="p-2 m-2 rounded-2xl text-black">
+            <option value="rock">Rock</option>
+            <option value="paper">Paper</option>
+            <option value="scissors">Scissors</option>
+        </select>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded-full">Play</button>
+    </form>
+</body>
+
+</html>
