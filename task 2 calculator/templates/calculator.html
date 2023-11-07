@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white" onkeydown="handleKeyPress(event)">
+    <div class="flex flex-col justify-center items-center h-screen">
+        <h1 class="text-3xl mb-8">Calculator by Omkar Shelke</h1>
+        <div class="w-64">
+            <input type="text" class="bg-gray-800 text-white w-full p-2 mb-4" id="inputField" readonly>
+            <div class="grid grid-cols-4 gap-2">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('1')">1</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('2')">2</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('3')">3</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('+')">+</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('4')">4</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('5')">5</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('6')">6</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('-')">-</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('7')">7</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('8')">8</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('9')">9</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('*')">*</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('0')">0</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('.')">.</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="addToScreen('/')">/</button>
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="calculateResult()">=</button>
+                <button id="inputField" class="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="BackSpace()">BK</button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    onclick="clearScreen()">C</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function addToScreen(value) {
+            var inputField = document.getElementById('inputField');
+            inputField.value += value;
+        }
+        
+        function calculateResult() {
+            try {
+                var input = document.getElementById('inputField').value;
+                var result = eval(input); // Using eval for simplicity, but be cautious with user input
+                document.getElementById('inputField').value = result;
+            } catch (error) {
+                document.getElementById('inputField').value = 'Error';
+            }
+        }
+        
+        function clearScreen() {
+            document.getElementById('inputField').value = '';
+        }
+        
+        function handleKeyPress(event) {
+            const key = event.key;
+            if (!isNaN(key) || key === '/' || key === '*' || key === '-' || key === '+' || key === '.') {
+                addToScreen(key === 'Enter' ? '=' : key);
+            }
+            if (event.key === 'Enter') {
+                calculateResult();
+            }
+        }
+
+        function BackSpace(event){
+            var inputField = document.getElementById('inputField');
+            inputField.value = inputField.value.slice(0, -1);
+        }
+    </script>
+        
+</body>
+
+</html>
