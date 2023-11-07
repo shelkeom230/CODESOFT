@@ -21,8 +21,7 @@ Click the "Copy password" button to copy the generated password to the clipboard
 Credits
 This project was created by Omkar Shelke. Feel free to contribute and make improvements.
 
-![image](https://github.com/shelkeom230/CODESOFT/assets/104075298/c598fd1d-a050-494f-81fb-e16e5049ff0d)
-
+![image](https://github.com/shelkeom230/CODESOFT/assets/104075298/385204d1-0107-4075-a0f8-0b98a657e003)
 
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
