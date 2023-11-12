@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact book || omkar shelke</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<style>
+    * {
+        background-color: black;
+        font-family: 'Times New Roman', Times, serif;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<body>
+    <br>
+    <h1 class="text-white text-3xl text-center">Contact Book by Omkar Shelke</h1><br>
+    <hr>
+    <div class="container flex items-center justify-center">
+        <input type="text" name="name" id="name" placeholder="contact name"
+            class="p-4 m-2 rounded-3xl bg-white text-black border border-black">
+        <input type="text" name="contactnumber" id="contactnumber" placeholder="contact number"
+            class="p-4 m-2 rounded-3xl bg-white text-black border border-black">
+        <input type="text" name="address" id="address" placeholder="address"
+            class="p-4 m-2 rounded-3xl bg-white text-black border border-black">
+        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-4" onclick="addContact()">
+            Add Contact
+        </button>
+    </div>
+    
+    <div class="container flex items-center justify-center flex-col">
+        <input type="text" id="search" placeholder="Search"
+            class="p-4 m-2 rounded-3xl bg-white text-black border border-black">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="searchContacts()">
+            Search
+        </button>
+    </div>
+    
+
+        <div id="display_contacts" class="flex items-center justify-center flex-col"></div>
+    </div>
+
+    <script>
+        function addContact() {
+            var contact_name = document.getElementById('name').value;
+            var contact_number = document.getElementById('contactnumber').value;
+            var address = document.getElementById('address').value;
+
+            fetch('/add_contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'name': contact_name,
+                    'contactnumber': contact_number,
+                    'address': address
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    document.getElementById('name').value = '';
+                    document.getElementById('contactnumber').value = '';
+                    document.getElementById('address').value = '';
+                    searchContacts(); // Refresh the displayed contacts after adding a new one
+                });
+        }
+
+        function searchContacts() {
+            var searchTerm = document.getElementById('search').value;
+            fetch('/get_contacts')
+                .then(response => response.json())
+                .then(contacts => {
+                    var filteredContacts = contacts.filter(contact =>
+                        contact.name.includes(searchTerm) || contact.contact_number.includes(searchTerm)
+                    );
+                    displayContacts(filteredContacts);
+                });
+        }
+
+        function displayContacts(contacts) {
+            var displayContacts = document.getElementById('display_contacts');
+            displayContacts.innerHTML = '';
+
+            contacts.forEach(contact => {
+                displayContacts.innerHTML += `
+                    <div class="text-white font-bold m-4 p-4 bg-gray-800 rounded">
+                        <p>${contact.name}</p>
+                        <p>${contact.contact_number}</p>
+                        <p>${contact.address}</p>
+                        <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" onclick="editContact(${contact.id})">
+                            Edit
+                        </button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="deleteContact(${contact.id})">
+                            Delete
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        function editContact(contactId) {
+            var newName = prompt("Enter new name:");
+            var newContactNumber = prompt("Enter new contact number: ");
+            var newAddress = prompt("Enter the new address: ");
+
+            // Check if any field is provided
+            if (newName !== null || newContactNumber !== null || newAddress !== null) {
+                fetch(`/edit_contact/${contactId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        'name': newName || undefined,
+                        'contact_number': newContactNumber || undefined,
+                        'address': newAddress || undefined
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                    })
+                    .then(() => searchContacts());
+            } else {
+                alert("No changes were made.");
+            }
+        }
+
+        function deleteContact(contactId) {
+            var confirmDelete = confirm("Are you sure you want to delete this contact?");
+            if (confirmDelete) {
+                fetch(`/delete_contact/${contactId}`, {
+                    method: 'DELETE',
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                    })
+                    .then(() => searchContacts());
+            }
+        }
+    </script>
+</body>
+
+</html>
