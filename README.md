@@ -24,5 +24,13 @@
 ![image](https://github.com/shelkeom230/CODESOFT/assets/104075298/01209d69-061b-460f-9c1f-949265e598f1)
 
 5. contact book application
+#developed a contact book flask app using tailwind frontend,mysql. Added add contact, search, edit and delete contact. Make use asynchronous javascript (await function) for edit contact. Make use of js prompts for edit functionality, demonstrated use json format for easy data manipulation
+
+![image](https://github.com/shelkeom230/CODESOFT/assets/104075298/82b4d513-73a7-466a-9b06-1defaf75e011)
+
+![image](https://github.com/shelkeom230/CODESOFT/assets/104075298/4ce67edc-7ee2-4252-b2ef-1f496cbe873e)
+
+This was all about my 5 tasks. Make sure you like this repo ,star it and fork it to have a reference.
+
 
 
